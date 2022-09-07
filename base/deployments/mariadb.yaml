@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb
+spec:
+  strategy:
+    type: Recreate
+  template:
+    spec:
+      serviceAccountName: perf
+      containers:
+        - name: mariadb
+          image: mariadb:10
+          envFrom:
+            - secretRef:
+                name: mariadb-creds
+          env:
+            - name: MARIADB_DATABASE
+              value: employees
+          ports:
+            - containerPort: 3306
+              name: mariadb
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mariadb-data
+            - mountPath: /scripts
+              name: mariadb-scripts
+          command:
+            - /bin/bash
+            - /scripts/prepare-container.sh
+          args:
+            - mariadbd
+      volumes:
+        - name: mariadb-scripts
+          configMap:
+            name: mariadb-scripts
+            defaultMode: 0777

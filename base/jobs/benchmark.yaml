@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: benchmark
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: benchmark
+          image: mariadb:10
+          args:
+            - /bin/bash
+            - /scripts/benchmark.sh
+          envFrom:
+            - secretRef:
+                name: mariadb-creds
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          volumeMounts:
+            - mountPath: /scripts
+              name: mariadb-scripts
+      volumes:
+        - name: mariadb-scripts
+          configMap:
+            name: mariadb-scripts
+            defaultMode: 0777

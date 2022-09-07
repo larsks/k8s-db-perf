@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonLabels:
+  app: mariadb-benchmark
+
+resources:
+  - deployments/mariadb.yaml
+  - secrets/mariadb-creds.yaml
+  - services/mariadb.yaml
+  - jobs/benchmark.yaml
+  - serviceaccounts/perf.yaml
+  - roles/run-as-root.yaml
+  - rolebindings/perf-as-root.yaml
+
+configMapGenerator:
+  - name: mariadb-scripts
+    files:
+      - scripts/load-sample-data.sh
+      - scripts/prepare-container.sh
+      - scripts/benchmark.sh
