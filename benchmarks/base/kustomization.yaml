@@ -6,7 +6,6 @@ commonLabels:
 
 resources:
   - deployments/mariadb.yaml
-  - secrets/mariadb-creds.yaml
   - services/mariadb.yaml
   - jobs/benchmark.yaml
   - serviceaccounts/perf.yaml
