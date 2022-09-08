@@ -1,0 +1,15 @@
+CREATE DATABASE results;
+USE results;
+
+CREATE TABLE state (
+	tag VARCHAR(40) NOT NULL PRIMARY KEY,
+	state VARCHAR(40),
+	UNIQUE(tag)
+);
+
+CREATE TABLE files (
+	tag VARCHAR(40) NOT NULL,
+	name VARCHAR(40) NOT NULL,
+	content MEDIUMTEXT,
+	PRIMARY KEY(tag, name)
+);

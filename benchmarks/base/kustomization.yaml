@@ -19,3 +19,4 @@ configMapGenerator:
       - scripts/load-sample-data.sh
       - scripts/prepare-container.sh
       - scripts/benchmark.sh
+      - scripts/create-results-database.sql
