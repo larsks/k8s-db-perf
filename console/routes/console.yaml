@@ -1,0 +1,10 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: console
+spec:
+  to:
+    kind: Service
+    name: console
+  port:
+    targetPort: 5000

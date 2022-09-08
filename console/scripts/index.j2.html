@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Database benchmark results</title>
+  </head>
+  <body> 
+    <h1>Database benchmark results</h1>
+
+    {% for tag in ['pv', 'local'] %}
+    <div id="{{tag}}.result">
+      <h2>mariadb-{{tag}}</h2>
+
+      <p>State: <span id="{{tag}}.state">unknown</span></p>
+
+      <h3>Run 1 (Synthesized data)</h3>
+      <pre id="{{tag}}.result.run1"></pre>
+
+      <h3>Run 2 (Sample data with explicit queries)</h3>
+      <pre id="{{tag}}.result.run2"></pre>
+    </div>
+    {% endfor %}
+
+    <script src="/assets/updateresults.js"></script>
+  </body>
+</html>
+

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: console
+spec:
+  template:
+    spec:
+      containers:
+        - name: console
+          image: docker.io/python:3.10
+          env:
+            - name: SCRIPTS_DIR
+              value: /scripts
+          envFrom:
+            - secretRef:
+                name: mariadb-creds
+          ports:
+            - containerPort: 5000
+              name: http
+              protocol: TCP
+          command:
+            - /bin/bash
+            - /scripts/run-console.sh
+          volumeMounts:
+            - name: console-scripts
+              mountPath: /scripts
+      volumes:
+        - name: console-scripts
+          configMap:
+            name: console-scripts

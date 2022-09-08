@@ -8,3 +8,4 @@ resources:
 - benchmarks/overlays/mariadb-local
 - benchmarks/overlays/mariadb-pv
 - secrets/mariadb-creds.yaml
+- console
